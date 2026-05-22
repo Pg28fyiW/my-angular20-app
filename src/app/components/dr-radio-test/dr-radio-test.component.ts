@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ISelectItem, RadioTestService } from '../../service/radio-test/radio-test';
 
 @Component({
   selector: 'app-dr-radio-test',
@@ -8,16 +9,11 @@ import { Component } from '@angular/core';
 })
 export class DrRadioTestComponent {
 
-  radioButtonTypeList = [
-    {
-      value: 'radiobutton1',
-      label: 'ラジオボタンテスト１'
-    },
-    {
-      value: 'radiobutton2',
-      label: 'ラジオボタンテスト２'
-    }
-  ];
+  radioButtonTypeList: ISelectItem[] = this.radioTestService.radioButtonTypeList;
+
+  constructor(
+    private radioTestService: RadioTestService,
+  ) { }
 
   inputData = {
     radioButtonType: ''
