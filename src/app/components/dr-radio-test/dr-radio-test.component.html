@@ -2,30 +2,39 @@
   <h4>これはSafariでのラジオボタンのテストです。</h4>
 
   <div class="radio_group">
-    <div class="radio_item" *ngFor="let item of radioButtonTypeList">
-      <input
-        type="radio"
-        [id]="'test_radio_button_' + item.value"
-        name="radioButtonTypeTest"
-        [value]="item.value"
-        [(ngModel)]="inputData.radioButtonType"
-        (ngModelChange)="updateInputData()"
-      />
+        <div class="radio_item" *ngFor="let item of radioButtonTypeList">
+            <!-- <input
+                type="radio"
+                [id]="'test_radio_button_' + item.value"
+                name="radioButtonTypeTest"
+                [value]="item.value"
+                [(ngModel)]="inputData.radioButtonType"
+                (ngModelChange)="updateInputData()"
+            /> -->
 
-      <label
-        class="radio_button"
-        [for]="'test_radio_button_' + item.value"
-      >
-        {{ item.label }}
-      </label>
+            <input type="radio" [value]="item.value" id="test_radio_button_{{ item.value }}"
+                name="radioButtonTypeTest" [(ngModel)]="inputData.radioButtonType" (ngModelChange)="updateInputData()">
 
-      <img
-        src="assets/images/common/question.png"
-        class="question pointer"
-        alt="?"
-        (click)="openQuestionModal(item.value); $event.stopPropagation()"
-      />
-    </div>
+            <!-- <label class="radio_button" [for]="'test_radio_button_' + item.value">
+                {{ item.label }}
+            </label> -->
+
+            <label class="radio_button" for="test_radio_button_{{ item.value }}">
+                {{ item.label }}
+            </label>
+
+            <!-- <img src="assets/images/common/question.png" class="question pointer"
+                alt="?" (click)="openQuestionModal(item.value); $event.stopPropagation()"
+            /> -->
+
+            <img src="assets/images/common/question.png" class="question pointer"
+                (click)="openQuestionModal(item.value); $event.stopPropagation()">
+
+            <!-- [attr.id]="item.value === SubsidyConst.FACILITY_INTRODUCTION_SUBSIDY
+                ? 'gaclick_dr_input_setsubidounyuupopup_ecocute' : 'gaclick_dr_input_servicekanyupopup_ecocute' -->
+
+
+        </div>
   </div>
 
   <p class="debug_text">
