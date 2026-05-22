@@ -1,0 +1,34 @@
+<div class="test_area">
+  <h4>これはSafariでのラジオボタンのテストです。</h4>
+
+  <div class="radio_group">
+    <div class="radio_item" *ngFor="let item of radioButtonTypeList">
+      <input
+        type="radio"
+        [id]="'test_radio_button_' + item.value"
+        name="radioButtonTypeTest"
+        [value]="item.value"
+        [(ngModel)]="inputData.radioButtonType"
+        (ngModelChange)="updateInputData()"
+      />
+
+      <label
+        class="radio_button"
+        [for]="'test_radio_button_' + item.value"
+      >
+        {{ item.label }}
+      </label>
+
+      <img
+        src="assets/images/common/question.png"
+        class="question pointer"
+        alt="?"
+        (click)="openQuestionModal(item.value); $event.stopPropagation()"
+      />
+    </div>
+  </div>
+
+  <p class="debug_text">
+    選択中: {{ inputData.radioButtonType }}
+  </p>
+</div>

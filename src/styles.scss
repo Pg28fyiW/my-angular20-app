@@ -1,1 +1,73 @@
-/* You can add global styles to this file, and also import other style files */
+/* 画面全体の基本設定 */
+body {
+    font-family: "メイリオ", Meiryo, sans-serif;
+    font-size: 16px;
+    padding: 20px;
+}
+
+/* ラジオボタン本体は非表示にする */
+input[type="radio"] {
+    display: none;
+}
+
+/* ラジオボタンのラベル */
+.radio_button {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    font-size: 1.6rem;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+/* 外側の丸 */
+.radio_button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 21px;
+    height: 21px;
+    margin-top: -12px;
+    border: 1px solid #aaa;
+    border-radius: 50%;
+    background: #fff;
+    z-index: 1;
+}
+
+/* 内側の赤い丸 */
+.radio_button::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    width: 13px;
+    height: 13px;
+    margin-top: -8px;
+    border-radius: 50%;
+    background: #EB1E1E;
+    opacity: 0;
+    z-index: 2;
+}
+
+/* チェックされたとき、内側の赤い丸を表示 */
+input[type="radio"]:checked + .radio_button::before {
+    opacity: 1;
+}
+
+/* チェックされたとき、外側の丸を赤枠にする */
+input[type="radio"]:checked + .radio_button::after {
+    border-color: #EB1E1E;
+}
+
+/* ラジオボタン全体の幅と中央寄せ */
+.radio_group {
+    margin: 1rem auto;
+    width: 240px;
+    max-width: 100%;
+}
+
+/* 1行ごとの余白 */
+.radio_group > div {
+    margin-bottom: 0.5rem;
+}

@@ -1,0 +1,25 @@
+/* ラジオボタン全体 */
+.radio_group {
+    display: table; // .radio_group が 中身に近い幅 になります。
+    margin: 0 auto; // radio_group 全体を中央に置く
+}
+
+/* 1行ごと */
+.radio_item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+}
+
+/* ？アイコン */
+.question {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+.pointer {
+    cursor: pointer;
+}
