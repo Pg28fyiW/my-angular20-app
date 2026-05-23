@@ -1,11 +1,12 @@
 <div class="test_area">
-  <h4>これはSafariでのラジオボタンのテストです。20260523 0011</h4>
+    <h4>これはSafariでのラジオボタンのテストです。20260523 0011</h4>
 
-  <div class="radio_group">
+    <div class="radio_group">
         <div class="radio_item" *ngFor="let item of radioButtonTypeList">
 
             <input type="radio" [value]="item.value" id="test_radio_button_{{ item.value }}"
-                name="radioButtonTypeTest" [(ngModel)]="inputData.radioButtonType" (ngModelChange)="updateInputData()">
+                name="radioButtonTypeTest" [(ngModel)]="inputData.radioButtonType" 
+                (ngModelChange)="updateInputData()">
 
             <label class="radio_button" for="test_radio_button_{{ item.value }}">
                 {{ item.label }}
@@ -17,9 +18,9 @@
                     ? 'gaclick_radio_button_type1' : 'gaclick_radio_button_type2'">
 
         </div>
-  </div>
+    </div>
 
-  <p class="debug_text">
-    選択中: {{ inputData.radioButtonType }}
-  </p>
+    <p class="debug_text">
+        選択中: {{ inputData.radioButtonType }}
+    </p>
 </div>
