@@ -2,21 +2,19 @@
     <h4>これはSafariでのラジオボタンのテストです。20260524 0327</h4>
 
     <div class="radio_group">
-        <div class="radio_item" *ngFor="let item of radioButtonTypeList">
+        <div class="radio_item" *ngFor="let item of radioButtonTypeList; let i = index">
 
-            <input type="radio" [value]="item.value" id="test_radio_button_{{ item.value }}"
+            <input type="radio" [value]="item.value" id="test_radio_button_{{ i }}"
                 name="radioButtonTypeTest" [(ngModel)]="inputData.radioButtonType" 
                 (ngModelChange)="updateInputData()">
 
-            <label class="radio_button" for="test_radio_button_{{ item.value }}">
+            <label class="radio_button" for="test_radio_button_{{ i }}">
                 {{ item.label }}
             </label>
 
             <img src="assets/images/common/question.png" class="question pointer"
                 (click)="openQuestionModal(item.value); $event.stopPropagation()"
-                [attr.id]="item.value === RadioTypeConst.RADIO_BUTTON_1
-                    ? 'gaclick_radio_button_type1' : 'gaclick_radio_button_type2'">
-
+                [attr.id]="i === 0 ? 'gaclick_radio_button_type_1' : 'gaclick_radio_button_type_2'">
         </div>
     </div>
 
