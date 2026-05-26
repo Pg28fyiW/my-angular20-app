@@ -68,11 +68,9 @@ export class UploadInputComponent implements OnInit {
    * 「ファイル選択１」ボタン押下時 
    */
   async inputFile1(event: Event): Promise<void> {
-
     const input = event.target as HTMLInputElement;
 
     if (!input.files || input.files.length === 0) {
-
       this.jpegfile1 = null;
       this.previewUrl1 = null;
       this.updateInput();
@@ -80,25 +78,26 @@ export class UploadInputComponent implements OnInit {
     }
 
     let file = input.files[0];
-    // HEIC形式のファイルをJPEG形式に変換
-    if (file.type === 'image/heic' || file.name.toLowerCase().endsWith('.heic')) {
+
+    if (
+      file.type === 'image/heic' ||
+      file.type === 'image/heif' ||
+      file.name.toLowerCase().endsWith('.heic') ||
+      file.name.toLowerCase().endsWith('.heif')
+    ) {
       file = await this.convertHeicToJpeg(file);
     }
 
-    // ファイル保存
     this.jpegfile1 = file;
 
-    // プレビュー表示
     const reader = new FileReader();
 
     reader.onload = () => {
       this.previewUrl1 = reader.result as string;
+      this.updateInput();
     };
 
     reader.readAsDataURL(file);
-
-    // サービスへ保存
-    this.updateInput();
   }
 
 
@@ -118,27 +117,25 @@ export class UploadInputComponent implements OnInit {
     }
 
     let file = input.files[0];
-    // HEIC形式のファイルをJPEG形式に変換
-    if (file.type === 'image/heic' || file.name.toLowerCase().endsWith('.heic')) {
+    if (
+      file.type === 'image/heic' ||
+      file.type === 'image/heif' ||
+      file.name.toLowerCase().endsWith('.heic') ||
+      file.name.toLowerCase().endsWith('.heif')
+    ) {
       file = await this.convertHeicToJpeg(file);
     }
 
-
-    // ファイル保存
     this.jpegfile2 = file;
 
-    // プレビュー表示
     const reader = new FileReader();
 
     reader.onload = () => {
-
       this.previewUrl2 = reader.result as string;
+      this.updateInput();
     };
 
     reader.readAsDataURL(file);
-
-    // サービスへ保存
-    this.updateInput();
   }
 
   /**
@@ -156,27 +153,25 @@ export class UploadInputComponent implements OnInit {
     }
 
     let file = input.files[0];
-    if (file.type === 'image/heic' || file.name.toLowerCase().endsWith('.heic')) {
+    if (
+      file.type === 'image/heic' ||
+      file.type === 'image/heif' ||
+      file.name.toLowerCase().endsWith('.heic') ||
+      file.name.toLowerCase().endsWith('.heif')
+    ) {
       file = await this.convertHeicToJpeg(file);
     }
 
-
-
-    // ファイル保存
     this.jpegfile3 = file;
 
-    // プレビュー表示
     const reader = new FileReader();
 
     reader.onload = () => {
-
       this.previewUrl3 = reader.result as string;
+      this.updateInput();
     };
 
     reader.readAsDataURL(file);
-
-    // サービスへ保存
-    this.updateInput();
   }
 
 
