@@ -1,5 +1,5 @@
 <main>
-    <h2>【検証】ファイルアップロード</h2>
+    <h2>【検証】ファイルアップロード 20260526 1125</h2>
 
     <div class="main_wrap">
         <div class="input_area">
@@ -17,7 +17,7 @@
                 </label>
                 <!-- プレビュー１ -->
                 <div *ngIf="previewUrl1">
-                    <img [src]="previewUrl1" class="preview_image">
+                    <img [src]="previewUrl1" class="preview_image" (click)="openPreview(previewUrl1)">
                 </div>
             </div>
 
@@ -28,7 +28,7 @@
                 </label>
                 <!-- プレビュー２ -->
                 <div *ngIf="previewUrl2">
-                    <img [src]="previewUrl2" class="preview_image">
+                    <img [src]="previewUrl2" class="preview_image" (click)="openPreview(previewUrl2)">
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
                 </label>
                 <!-- プレビュー３ -->
                 <div *ngIf="previewUrl3">
-                    <img [src]="previewUrl3" class="preview_image">
+                    <img [src]="previewUrl3" class="preview_image" (click)="openPreview(previewUrl3)">
                 </div>
             </div>
 
@@ -53,4 +53,15 @@
 
 </main>
 
+
+<!-- 画像拡大モーダル -->
+<div class="modal" *ngIf="selectedPreviewUrl">
+    <div class="modal_content image_modal_content">
+        <div class="close_about" (click)="closePreview()">×</div>
+
+        <h2>画像プレビュー</h2>
+
+        <img [src]="selectedPreviewUrl" class="large_image">
+    </div>
+</div>
 

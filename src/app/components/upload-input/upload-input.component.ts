@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUploadInput } from '../../interface/view/upload-form';
 import { UploadService } from '../../service/upload/upload.service';
+import heic2any from 'heic2any';
 
 
 @Component({
@@ -31,20 +32,14 @@ export class UploadInputComponent implements OnInit {
   // プレビュー表示３
   previewUrl3: string | null = null;
 
-  // エラーメッセージ
-  errMsgs: Array<string> = [];
-
-
-  // アップロードファイルの必須チェックエラー
-  public static readonly UPLOADFILE_REQUIRED = 'アップロードファイルを選択してください。';
-  public static readonly INCONTEXT_REQUIRED = 'inContextを入力してください。';
-  public static readonly INCONTEXT_LENGTH_OVER = 'inContextは3文字以内で入力してください';
-
   // 画面入力情報
   input: IUploadInput = {
     inContext: '',
     // uploadは書かなくてOK（? なので任意）
   };
+
+  // クリックして拡大表示する画像
+  selectedPreviewUrl: string | null = null;
 
   constructor(
     private router: Router,
@@ -68,10 +63,11 @@ export class UploadInputComponent implements OnInit {
     };
   }
 
+
   /**
    * 「ファイル選択１」ボタン押下時 
    */
-  inputFile1(event: Event): void {
+  async inputFile1(event: Event): Promise<void> {
 
     const input = event.target as HTMLInputElement;
 
@@ -83,14 +79,10 @@ export class UploadInputComponent implements OnInit {
       return;
     }
 
-    const file = input.files[0];
-
-    // サイズチェック
-    if (!this.checkFileSize(file)) {
-      this.jpegfile1 = null;
-      this.previewUrl1 = null;
-      this.updateInput();
-      return;
+    let file = input.files[0];
+    // HEIC形式のファイルをJPEG形式に変換
+    if (file.type === 'image/heic' || file.name.toLowerCase().endsWith('.heic')) {
+      file = await this.convertHeicToJpeg(file);
     }
 
     // ファイル保存
@@ -113,7 +105,7 @@ export class UploadInputComponent implements OnInit {
   /**
    * 「ファイル選択２」ボタン押下時 
    */
-  inputFile2(event: Event): void {
+  async inputFile2(event: Event): Promise<void> {
 
     const input = event.target as HTMLInputElement;
 
@@ -125,16 +117,12 @@ export class UploadInputComponent implements OnInit {
       return;
     }
 
-    const file = input.files[0];
-
-    // サイズチェック
-    if (!this.checkFileSize(file)) {
-
-      this.jpegfile2 = null;
-      this.previewUrl2 = null;
-      this.updateInput();
-      return;
+    let file = input.files[0];
+    // HEIC形式のファイルをJPEG形式に変換
+    if (file.type === 'image/heic' || file.name.toLowerCase().endsWith('.heic')) {
+      file = await this.convertHeicToJpeg(file);
     }
+
 
     // ファイル保存
     this.jpegfile2 = file;
@@ -156,7 +144,7 @@ export class UploadInputComponent implements OnInit {
   /**
    * 「ファイル選択３」ボタン押下時 
    */
-  inputFile3(event: Event): void {
+  async inputFile3(event: Event): Promise<void> {
 
     const input = event.target as HTMLInputElement;
 
@@ -167,15 +155,12 @@ export class UploadInputComponent implements OnInit {
       return;
     }
 
-    const file = input.files[0];
-
-    // サイズチェック
-    if (!this.checkFileSize(file)) {
-      this.jpegfile3 = null;
-      this.previewUrl3 = null;
-      this.updateInput();
-      return;
+    let file = input.files[0];
+    if (file.type === 'image/heic' || file.name.toLowerCase().endsWith('.heic')) {
+      file = await this.convertHeicToJpeg(file);
     }
+
+
 
     // ファイル保存
     this.jpegfile3 = file;
@@ -194,41 +179,43 @@ export class UploadInputComponent implements OnInit {
     this.updateInput();
   }
 
-  /**
-   * jpgファイル
-   * @param file jpg
-   */
-  private checkFileSize(file: File): boolean {
-    const MAX_SIZE = 2 * 1024 * 1024;
 
-    if (file.size > MAX_SIZE) {
-      this.errMsgs = ['ファイルサイズは2MB以内にしてください。'];
-      return false;
+
+  /**
+   * プレビュー画像クリック時
+   */
+  openPreview(url: string | null): void {
+    if (!url) {
+      return;
     }
 
-    this.errMsgs = [];
-    return true;
+    this.selectedPreviewUrl = url;
   }
 
   /**
-   * エラーメッセージが存在するか
+   * 拡大画像を閉じる
    */
-  hasErrMsg(): boolean {
-    return this.errMsgs && this.errMsgs.length > 0 ? true : false;
+  closePreview(): void {
+    this.selectedPreviewUrl = null;
   }
 
   /**
-   * 戻るボタン押下処理
+   * HEIC形式のファイルをJPEG形式に変換する
+   * @param file 
+   * @returns 
    */
-  back(): void {
-    this.router.navigateByUrl('dr');
-  }
+  private async convertHeicToJpeg(file: File): Promise<File> {
+    const convertedBlob = await heic2any({
+      blob: file,
+      toType: 'image/jpeg',
+      quality: 0.8
+    }) as Blob;
 
-  /**
-   * 「次へ」ボタン押下（アップロード本登録画面へ遷移）
-   */
-  onNext(): void {
-
+    return new File(
+      [convertedBlob],
+      file.name.replace(/\.(heic|heif)$/i, '.jpg'),
+      { type: 'image/jpeg' }
+    );
   }
 
 
