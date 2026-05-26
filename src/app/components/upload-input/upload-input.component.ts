@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUploadInput } from '../../interface/view/upload-form';
 import { UploadService } from '../../service/upload/upload.service';
-import heic2any from 'heic2any';
+
 
 
 @Component({
@@ -199,12 +199,30 @@ export class UploadInputComponent implements OnInit {
     this.selectedPreviewUrl = null;
   }
 
-  /**
-   * HEIC形式のファイルをJPEG形式に変換する
-   * @param file 
-   * @returns 
-   */
+
+  // import heic2any from 'heic2any';
+  // /**
+  //  * HEIC形式のファイルをJPEG形式に変換する
+  //  * @param file 
+  //  * @returns 
+  //  */
+  // private async convertHeicToJpeg(file: File): Promise<File> {
+  //   const convertedBlob = await heic2any({
+  //     blob: file,
+  //     toType: 'image/jpeg',
+  //     quality: 0.8
+  //   }) as Blob;
+
+  //   return new File(
+  //     [convertedBlob],
+  //     file.name.replace(/\.(heic|heif)$/i, '.jpg'),
+  //     { type: 'image/jpeg' }
+  //   );
+  // }
+
   private async convertHeicToJpeg(file: File): Promise<File> {
+    const heic2any = (await import('heic2any')).default;
+
     const convertedBlob = await heic2any({
       blob: file,
       toType: 'image/jpeg',
