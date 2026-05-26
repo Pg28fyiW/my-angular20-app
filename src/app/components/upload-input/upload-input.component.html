@@ -1,0 +1,56 @@
+<main>
+    <h2>【検証】ファイルアップロード</h2>
+
+    <div class="main_wrap">
+        <div class="input_area">
+
+            <h4>タイトルを入れてください。：</h4>
+            <div class="message_title">
+                <input type="text" minlength="1" maxlength="64" [(ngModel)]="inContext" (ngModelChange)="updateInput()">
+            </div>
+
+            <h4>アップロードファイル１：</h4>
+            <div>
+                <label class="message_title">
+                    <!-- スマホのカメラ撮影対応を考える場合は accept="image/*" 画像ファイル全般を選択したいという意味になります。 -->
+                    <input type="file" accept="image/*" (change)="inputFile1($event)" >
+                </label>
+                <!-- プレビュー１ -->
+                <div *ngIf="previewUrl1">
+                    <img [src]="previewUrl1" class="preview_image">
+                </div>
+            </div>
+
+            <h4>アップロードファイル２：</h4>
+            <div>
+                <label class="message_title">
+                    <input type="file" accept="image/*" (change)="inputFile2($event)">
+                </label>
+                <!-- プレビュー２ -->
+                <div *ngIf="previewUrl2">
+                    <img [src]="previewUrl2" class="preview_image">
+                </div>
+            </div>
+
+            <h4>アップロードファイル３：</h4>
+            <div>
+                <label class="message_title">
+                    <input type="file" accept="image/*" (change)="inputFile3($event)">
+                </label>
+                <!-- プレビュー３ -->
+                <div *ngIf="previewUrl3">
+                    <img [src]="previewUrl3" class="preview_image">
+                </div>
+            </div>
+
+        </div><!-- input_area -->
+    </div><!-- main_wrap -->
+
+    <div class="button_area flex jc_between">
+        <button class="prev button" type="button">戻る</button>
+        <button class="next button" type="button">次へ</button>
+    </div>
+
+</main>
+
+

@@ -4,12 +4,12 @@ import { RadioTypeConstant } from '../../constant/radio-type.constant';
 
 
 @Component({
-  selector: 'app-dr-radio-test',
+  selector: 'app-radio-test',
   standalone: false,
-  templateUrl: './dr-radio-test.component.html',
-  styleUrl: './dr-radio-test.component.scss'
+  templateUrl: './radio-test.component.html',
+  styleUrl: './radio-test.component.scss'
 })
-export class DrRadioTestComponent {
+export class RadioTestComponent {
 
   // ラジオボタンのリスト
   radioButtonTypeList: ISelectItem[] = this.radioTestService.radioButtonTypeList;

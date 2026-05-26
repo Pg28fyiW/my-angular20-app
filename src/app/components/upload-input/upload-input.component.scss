@@ -1,0 +1,199 @@
+/* ===============================
+   全体レイアウト
+=============================== */
+main {
+    width: 92vw;
+    margin: 0 auto;
+}
+
+.main_wrap {
+    margin: 0 auto;
+    border-radius: 12px;
+    background: #fff;
+    padding: 16px 16px 30px;
+}
+
+.content {
+    width: 750px;
+    margin: 0 auto;
+}
+
+/* ===============================
+   見出し
+=============================== */
+h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 20px auto 2px;
+}
+
+h4 {
+    font-size: 1.6rem;
+    margin: 34px 0 12px;
+    line-height: 2rem;
+}
+
+h4::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: #eb1e1e;
+    margin-right: 6px;
+}
+
+/* ===============================
+   入力フォーム
+=============================== */
+input[type="text"],
+input[type="tel"] {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding-left: 2%;
+    width: 100%;
+    height: 32px;
+    border-radius: 8px;
+}
+
+input[type="text"]::placeholder {
+    font-size: 2rem !important;
+}
+
+.message_title input[type="text"] {
+    width: 100%;
+}
+
+.message_title input[type="file"] {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 6px;
+    width: 100%;
+}
+
+/* ===============================
+   ボタン
+=============================== */
+.button_area {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+
+    .button {
+        text-align: center;
+        line-height: 44px;
+        margin: 0 10px;
+        font-size: 1.4rem;
+        font-weight: bold;
+        display: block;
+        width: 39vw;
+        height: 44px;
+        border-radius: 40vw;
+        cursor: pointer;
+
+        &.prev {
+        background: #fff;
+        color: #000;
+        }
+
+        &.next {
+        background: #EB1E1E;
+        color: #fff;
+
+        &.disabled {
+            background-color: #d9d9d9;
+            color: #666;
+            cursor: default;
+            pointer-events: none;
+        }
+        }
+    }
+}
+
+/* ===============================
+   エラー表示
+=============================== */
+.invalid {
+    color: #eb1e1e;
+    padding: 5px;
+}
+
+
+/* ===============================
+   チェックボックス
+=============================== */
+.agree {
+    font-size: 1.6rem;
+    margin: 30px 0;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+.agree label {
+    position: relative;
+    cursor: pointer;
+    padding-left: 36px;
+    display: flex;
+    align-items: center;
+}
+
+.agree .indicator {
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.agree label input:checked ~ .indicator::after {
+    display: block;
+}
+
+.agree .indicator::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 10px;
+    border: solid #000;
+    border-width: 0 2px 2px 0;
+    left: 6px;
+    top: 2px;
+    transform: rotate(45deg);
+}
+
+/* ===============================
+   プレビュー表示
+=============================== */
+.preview_image {
+    width: 200px;
+    margin-top: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+@media screen and (min-width: 961px) {
+
+    main {
+        width: 880px;
+    }
+
+    .input_area {
+        width: 454px;
+        margin: 0 auto;
+    }
+
+    input[type="text"],
+    input[type="tel"] {
+        width: 60%;
+    }
+
+    .button_area {
+        width: 285px;
+        margin: 34px auto 24px;
+    }
+}
